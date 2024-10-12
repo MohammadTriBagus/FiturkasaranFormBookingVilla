@@ -1,0 +1,210 @@
+FUNCTION clearNewline(str)
+    len ← LENGTH(str)
+    IF len > 0 AND str[len - 1] = '\n' THEN
+        str[len - 1] ← '\0'
+    END IF
+END FUNCTION
+
+FUNCTION validasiTipeKamar(pilihan)
+    RETURN pilihan >= 1 AND pilihan <= 5
+END FUNCTION
+
+FUNCTION tampilkanHeader()
+    PRINT "\n================================="
+    PRINT "   Form Pemesanan Vila Filya"
+    PRINT "=================================\n"
+END FUNCTION
+
+FUNCTION ringkasanPembayaran(metodePembayaran, totalBiaya)
+    PRINT "\n================================="
+    PRINT "      Ringkasan Pembayaran"
+    PRINT "================================="
+    PRINT "Metode Pembayaran: ", metodePembayaran
+    PRINT "Total Biaya: Rp ", totalBiaya
+    PRINT "================================="
+END FUNCTION
+
+FUNCTION pilihBankTransfer()
+    PRINT "\n================================="
+    PRINT "      Pilihan Transfer Bank"
+    PRINT "================================="
+    PRINT "1. Bank Mandiri  - No. Rek: 123-456-7890"
+    PRINT "2. BRI           - No. Rek: 987-654-3210"
+    PRINT "3. BCA           - No. Rek: 123-987-6540"
+    PRINT "4. BNI           - No. Rek: 456-123-7890"
+    PRINT "5. BTN           - No. Rek: 789-654-1230"
+    PRINT "6. BSI           - No. Rek: 321-654-9870"
+    PRINT "7. Bank Indonesia - No. Rek: 654-987-3210"
+    
+    INPUT pilihanBank
+    WHILE pilihanBank < 1 OR pilihanBank > 7
+        PRINT "Pilihan tidak valid! Masukkan ulang: "
+    END WHILE
+    
+    PRINT "Silakan transfer ke rekening yang dipilih."
+    PRINT "Tolong selesaikan pembayaran dalam waktu 2 jam."
+END FUNCTION
+
+FUNCTION pilihEWallet()
+    PRINT "\n================================="
+    PRINT "         Pilihan E-Wallet"
+    PRINT "================================="
+    PRINT "1. Dana       - No. E-Wallet: 0808-1234-5678"
+    PRINT "2. ShopeePay  - No. E-Wallet: 0812-3456-7890"
+    PRINT "3. OVO        - No. E-Wallet: 0811-1234-5678"
+    PRINT "4. GoPay      - No. E-Wallet: 0813-4567-7890"
+    PRINT "5. LinkAja    - No. E-Wallet: 0819-1234-5678"
+    
+    INPUT pilihanEWallet
+    WHILE pilihanEWallet < 1 OR pilihanEWallet > 5
+        PRINT "Pilihan tidak valid! Masukkan ulang: "
+    END WHILE
+    
+    PRINT "Silakan lakukan pembayaran ke nomor E-Wallet yang dipilih."
+END FUNCTION
+
+FUNCTION pilihKartuKredit()
+    PRINT "\n================================="
+    PRINT "       Pilihan Kartu Kredit"
+    PRINT "================================="
+    PRINT "1. Bank Mandiri  - No. Kartu: 1234-5678-9012-3456"
+    PRINT "2. BRI           - No. Kartu: 9876-5432-1098-7654"
+    PRINT "3. BCA           - No. Kartu: 5678-9012-3456-7890"
+    PRINT "4. BNI           - No. Kartu: 3456-7890-1234-5678"
+    PRINT "5. BTN           - No. Kartu: 7890-1234-5678-9012"
+    PRINT "6. BSI           - No. Kartu: 6543-2198-7654-3210"
+    PRINT "7. Bank Indonesia - No. Kartu: 4321-0987-6543-2109"
+    
+    INPUT pilihanKartuKredit
+    WHILE pilihanKartuKredit < 1 OR pilihanKartuKredit > 7
+        PRINT "Pilihan tidak valid! Masukkan ulang: "
+    END WHILE
+    
+    INPUT pin
+    PRINT "Pembayaran kartu kredit berhasil dilakukan."
+END FUNCTION
+
+FUNCTION cekStatusPembayaran()
+    PRINT "\n================================="
+    PRINT "       Cek Status Pembayaran"
+    PRINT "================================="
+    PRINT "Status pembayaran: Sukses (silakan cek bukti pembayaran Anda)"
+END FUNCTION
+
+MAIN PROGRAM
+    DECLARE nama, email, tipeKamar, metodePembayaran AS STRING
+    DECLARE jumlahOrang, pilihanKamar, totalBiaya AS INTEGER
+    DECLARE tanggalMenginap AS STRING
+    DECLARE pilihanMenu AS INTEGER
+
+    DO
+        tampilkanHeader()
+
+        PRINT "Masukkan Nama Pemesan: "
+        INPUT nama
+        clearNewline(nama)
+
+        PRINT "Masukkan Email Pemesan: "
+        INPUT email
+        clearNewline(email)
+
+        PRINT "Masukkan Tanggal Menginap (dd-mm-yyyy): "
+        INPUT tanggalMenginap
+        clearNewline(tanggalMenginap)
+
+        PRINT "Masukkan Jumlah Orang: "
+        INPUT jumlahOrang
+        WHILE jumlahOrang <= 0
+            PRINT "Jumlah orang tidak valid! Masukkan ulang: "
+        END WHILE
+
+        PRINT "\nPilih Tipe Kamar:"
+        PRINT "1. Filya Garden - Rp 1,500,000 per malam"
+        PRINT "2. Filya Bliss - Rp 2,000,000 per malam"
+        PRINT "3. Filya Grove - Rp 1,800,000 per malam"
+        PRINT "4. Filya Hills - Rp 2,500,000 per malam"
+        PRINT "5. Filya Breeze - Rp 2,200,000 per malam"
+
+        PRINT "Masukkan nomor tipe kamar (1-5): "
+        INPUT pilihanKamar
+        WHILE NOT validasiTipeKamar(pilihanKamar)
+            PRINT "Pilihan tidak valid! Masukkan ulang: "
+        END WHILE
+
+        // Tentukan harga berdasarkan pilihan kamar
+        SWITCH pilihanKamar
+            CASE 1:
+                tipeKamar ← "Filya Garden"
+                totalBiaya ← 1500000
+            CASE 2:
+                tipeKamar ← "Filya Bliss"
+                totalBiaya ← 2000000
+            CASE 3:
+                tipeKamar ← "Filya Grove"
+                totalBiaya ← 1800000
+            CASE 4:
+                tipeKamar ← "Filya Hills"
+                totalBiaya ← 2500000
+            CASE 5:
+                tipeKamar ← "Filya Breeze"
+                totalBiaya ← 2200000
+        END SWITCH
+
+        PRINT "\n================================="
+        PRINT "        Ringkasan Pemesanan"
+        PRINT "================================="
+        PRINT "Nama Pemesan   : ", nama
+        PRINT "Email          : ", email
+        PRINT "Tanggal Menginap: ", tanggalMenginap
+        PRINT "Jumlah Orang   : ", jumlahOrang
+        PRINT "Tipe Kamar     : ", tipeKamar
+        PRINT "================================="
+
+        PRINT "\nPilih Metode Pembayaran:"
+        PRINT "1. Transfer Bank"
+        PRINT "2. Kartu Kredit"
+        PRINT "3. E-Wallet"
+        PRINT "4. Konfirmasi via WhatsApp (Pembayaran VIA Offline)"
+
+        PRINT "Masukkan nomor metode pembayaran (1-4): "
+        INPUT pilihanPembayaran
+        WHILE pilihanPembayaran < 1 OR pilihanPembayaran > 4
+            PRINT "Pilihan tidak valid! Masukkan ulang: "
+        END WHILE
+
+        // Memilih metode pembayaran
+        SWITCH pilihanPembayaran
+            CASE 1:
+                metodePembayaran ← "Transfer Bank"
+                ringkasanPembayaran(metodePembayaran, totalBiaya)
+                pilihBankTransfer()
+            CASE 2:
+                metodePembayaran ← "Kartu Kredit"
+                ringkasanPembayaran(metodePembayaran, totalBiaya)
+                pilihKartuKredit()
+            CASE 3:
+                metodePembayaran ← "E-Wallet"
+                ringkasanPembayaran(metodePembayaran, totalBiaya)
+                pilihEWallet()
+            CASE 4:
+                PRINT "Silakan kirim pesan ke WhatsApp dengan detail pemesanan."
+                RETURN // Mengakhiri program setelah konfirmasi
+        END SWITCH
+
+        PRINT "\n================================="
+        PRINT "Apakah Anda ingin:"
+        PRINT "1. Cek Status Pembayaran"
+        PRINT "2. Kembali ke Halaman Beranda"
+        PRINT "Masukkan pilihan (1-2): "
+        INPUT pilihanMenu
+        WHILE pilihanMenu < 1 OR pilihanMenu > 2
+            PRINT "Pilihan tidak valid! Masukkan ulang: "
+        END WHILE
+
+        IF pilihanMenu = 1 THEN
+            cekStatusPembayaran()
+        END IF
+
+    WHILE pilihanMenu ≠ 2
+
+END MAIN PROGRAM
